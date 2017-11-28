@@ -87,56 +87,9 @@ Currently, both the management and environment VPCs will be deployed in the same
 
 ### Application environment
 
-1. Create the Terraform variables file.
-
-    ```sh
-    cd terraform/env
-    cp terraform.tfvars.example terraform.tfvars
-    ```
-
-1. Fill out [`terraform.tfvars`](terraform/terraform.tfvars.example).
-1. Set up environment using Terraform.
-
-    ```sh
-    export AWS_DEFAULT_REGION=us-east-2
-    terraform init
-    ```
-
-1. Run the [deployment](#deployment) steps below.
-1. Visit the setup page.
-
-    ```sh
-    open $(terraform output url)wp-admin/install.php
-    ```
-
-## Deployment
-
-For initial or subsequent deployment:
-
-1. Bootstrap the environment using Terraform.
-
-    ```sh
-    terraform apply -target=aws_route53_record.db
-    ```
-
-    _NOTE: There is a circular dependency between the Terraform and Packer configurations. This workaround only creates the subset of the environment required for the AMI build._
-
-1. Build the AMI.
-
-    ```sh
-    packer build \
-      -var db_host=$(terraform output db_host) \
-      -var db_name=$(terraform output db_name) \
-      -var db_user=$(terraform output db_user) \
-      -var db_pass=$(terraform output db_pass) \
-      ../../packer/wordpress.json
-    ```
-
-1. Deploy the latest AMI.
-
-    ```sh
-    terraform apply
-    ```
+1. From the Blue Ocean Branches page, `Run` a new build on the appropriate branch.
+    * This will deploy the environment.
+1. The Jenkins build output will show the WordPress URL - visit it to set up WordPress.
 
 Note that if the public IP address changes after you set up the site initially, you will need to [change the site URL](https://codex.wordpress.org/Changing_The_Site_URL#Changing_the_Site_URL) in WordPress.
 
