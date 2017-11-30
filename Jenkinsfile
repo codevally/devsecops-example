@@ -1,5 +1,5 @@
 pipeline {
-  agent none
+  agent any
 
   triggers {
     // every minute
@@ -52,6 +52,11 @@ pipeline {
         // build the remaining infrastructure
         sh 'cd terraform/env && terraform apply -input=false -auto-approve'
       }
+    }
+  }
+  post {
+    always {
+      cleanWs()
     }
   }
 }
