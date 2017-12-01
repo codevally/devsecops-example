@@ -38,7 +38,6 @@ pipeline {
         // bootstrap the environment with the resources requried for Packer
         sh 'cd terraform/env && terraform apply -input=false -auto-approve -target=aws_route53_record.db'
 
-        sh 'ansible-galaxy install -p ansible/roles -r ansible/requirements.yml -vvv'
         // create the AMI
         sh '''
           cd terraform/env && \

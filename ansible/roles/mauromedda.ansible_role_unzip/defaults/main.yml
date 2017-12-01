@@ -1,0 +1,6 @@
+---
+# defaults file for ansible_role_unzip
+
+unzip_installed: true # Default: true. Install unzip if absent
+
+unzip_state: "{{ 'present' if unzip_installed==true else 'absent' }}"

@@ -1,0 +1,6 @@
+---
+# defaults file for ansible_role_tar
+
+tar_installed: true # Default: true. Install tar if absent
+
+tar_state: "{{ 'present' if tar_installed==true else 'absent' }}"

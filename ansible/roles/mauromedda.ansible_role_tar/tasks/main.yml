@@ -1,0 +1,11 @@
+---
+# tasks file for ansible_role_tar
+
+- name: "UNZIP | {{ tar_state }}"
+  yum:
+    name: tar
+    state: "{{ tar_state }}"
+  tags:
+    - install
+    - tar
+    - uninstall

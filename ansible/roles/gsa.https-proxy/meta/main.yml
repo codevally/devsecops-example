@@ -1,0 +1,44 @@
+galaxy_info:
+  author: Aidan Feldman
+  description: Set up nginx as a secure proxy
+  company: General Services Administration
+
+  license: CC0
+
+  min_ansible_version: 1.2
+
+  platforms:
+    - name: EL
+      versions:
+        - 7
+
+  galaxy_tags:
+    - nginx
+    - secure
+    - proxy
+    - https
+    - tls
+    - ssl
+    - termination
+
+# must match `../tests/requirements.yml`
+dependencies:
+
+  - role: geerlingguy.repo-epel
+
+  - role: geerlingguy.nginx
+    nginx_remove_default_vhost: true
+    nginx_server_tokens: "off"
+    # use EPEL version
+    nginx_yum_repo_enabled: false
+    nginx_upstreams:
+      - name: http_upstream
+        servers:
+          - "{{ upstream_origin }} fail_timeout=0"
+
+  - role: jdauphant.ssl-certs
+    # need to specify both here and in `../defaults/main.yml`, due to https://github.com/ansible/ansible/issues/17678
+    ssl_certs_common_name: "{{ external_hostname }}"
+    # match geerlingguy.nginx
+    ssl_certs_path_owner: "{{ nginx_user }}"
+    ssl_certs_path_group: "{{ nginx_user }}"
