@@ -19,9 +19,6 @@ pipeline {
       }
       environment {
         AWS_DEFAULT_REGION = 'us-east-2'
-        // required for Packer
-        // https://groups.google.com/d/msg/packer-tool/92wq5kYOvto/kkzoASaMAQAJ
-        USER = 'jenkins'
       }
       steps {
         sh 'whoami'
