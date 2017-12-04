@@ -11,9 +11,6 @@ ARG TERRAFORM_VERSION=0.11.1
 ADD https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip /tmp/terraform_${TERRAFORM_VERSION}_linux_amd64.zip
 RUN unzip /tmp/terraform_${TERRAFORM_VERSION}_linux_amd64.zip -d /usr/local/bin
 
-RUN groupadd -r jenkins && \
-  useradd --no-log-init -r -g jenkins jenkins
-USER jenkins
 # required for Packer
 # https://groups.google.com/d/msg/packer-tool/92wq5kYOvto/kkzoASaMAQAJ
-ENV USER jenkins
+ENV USER root
