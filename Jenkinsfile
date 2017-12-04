@@ -14,13 +14,17 @@ pipeline {
           image '18fgsa/devsecops-builder'
           alwaysPull true
           // https://support.cloudbees.com/hc/en-us/articles/218583777-How-to-set-user-in-docker-image-
-          args '-u root'
+          args '-u jenkins'
         }
       }
       environment {
         AWS_DEFAULT_REGION = 'us-east-2'
+        // required for Packer
+        // https://groups.google.com/d/msg/packer-tool/92wq5kYOvto/kkzoASaMAQAJ
+        USER = 'jenkins'
       }
       steps {
+        sh 'whoami'
         sh 'ansible-playbook --version'
         sh 'terraform version'
 
