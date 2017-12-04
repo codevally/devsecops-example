@@ -9,9 +9,7 @@
     wp_install_dir: /usr/share/wordpress
     wp_content_dir: "{{ wp_install_dir }}/wp-content"
   roles:
-    - role: ansible-os-ubuntu-16
-      # https://stackoverflow.com/a/39184357/358804
-      become: true
+    - ansible-os-ubuntu-16
   tasks:
 
     # based on
