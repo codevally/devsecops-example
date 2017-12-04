@@ -1,6 +1,4 @@
 ---
 - src: https://github.com/GSA/ansible-os-ubuntu-16
-  # https://github.com/GSA/ansible-os-ubuntu-16/pull/1
-  version: become-B
 - src: https://github.com/GSA/jenkins-deploy
   name: gsa.jenkins
