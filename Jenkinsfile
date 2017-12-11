@@ -28,7 +28,7 @@ pipeline {
         // TODO find better way of specifying this secret
         sh 'cd terraform/env && cp terraform.tfvars.example terraform.tfvars'
         // https://www.terraform.io/guides/running-terraform-in-automation.html#auto-approval-of-plans
-        sh 'cd terraform/env && terraform init -input=false'
+        sh 'cd terraform/env && terraform init -input=false "-backend-config=bucket=$(cd ../mgmt && terraform output env_backend_bucket)"'
         // bootstrap the environment with the resources requried for Packer
         sh 'cd terraform/env && terraform apply -input=false -auto-approve -target=aws_route53_record.db'
       }
